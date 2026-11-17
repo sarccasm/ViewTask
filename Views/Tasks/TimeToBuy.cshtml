@@ -1,0 +1,3 @@
+@inject ViewTask.Services.ITimeService TimeService
+<h2>It's time to shopping!</h2>
+<p>@TimeService.GetTimeForTomorrow().ToString("MM/dd/yyyy HH:mm")</p>

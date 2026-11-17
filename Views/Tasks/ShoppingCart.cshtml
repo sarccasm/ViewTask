@@ -1,0 +1,37 @@
+@model ShoppingCartViewModel
+@{ ViewData["Title"] = "ShoppingCart"; }
+<h1>Your shopping cart</h1>
+@using (Html.BeginForm("ShoppingCart", "Tasks", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <p>
+        @Html.LabelFor(model => model.FullName)<br />
+        @Html.TextBoxFor(model => model.FullName, new { autocomplete = "name", maxlength = 100 })
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Address)<br />
+        @Html.TextBoxFor(model => model.Address, new { autocomplete = "street-address", maxlength = 250 })
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Supermarket)<br />
+        @Html.DropDownListFor(model => model.Supermarket, Model.Supermarkets)
+    </p>
+    <fieldset>
+        <legend>Shipping date</legend>
+        @foreach (var date in Model.ShippingDates)
+        {
+            var id = "shipping-" + date.ToString("yyyy-MM-dd");
+            <div>
+                @Html.RadioButtonFor(model => model.ShippingDate, date.ToString("yyyy-MM-dd"), new { id })
+                <label for="@id">@date.ToString("MM/dd/yyyy")</label>
+            </div>
+        }
+    </fieldset>
+    <p>
+        @Html.LabelFor(model => model.Products)<br />
+        @Html.ListBoxFor(model => model.Products, Model.AvailableProducts, new { size = 5 })
+        <small class="d-block">Use Ctrl (Windows) or Command (Mac) to select several products.</small>
+    </p>
+    <input type="submit" value="Send" />
+}

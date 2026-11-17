@@ -1,0 +1,12 @@
+@model Dictionary<string, int>
+@{ ViewData["Title"] = "ShoppingList"; }
+<h1>Our shopping list</h1>
+<table class="grid-table">
+    <tbody>
+    @foreach (var product in Model)
+    {
+        <tr><td>@product.Key</td><td>@product.Value</td></tr>
+    }
+    </tbody>
+</table>
+<partial name="TimeToBuy" />
